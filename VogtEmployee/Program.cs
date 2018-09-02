@@ -11,12 +11,16 @@ namespace VogtEmployee
         static void Main(string[] args)
         {
             int choice = default;
+            bool quit = false;
 
             DisplayHeader();
 
             Employee emp = new Employee();
 
-            while(choice != 1)
+            var listOfEmployees = new List<(int empNo, string empFName, string empLName)>();
+
+            while (quit == false)
+            {
                 Console.WriteLine("What is the number of the employee?");
                 emp.EmpNumber = Convert.ToInt32(Console.ReadLine());
 
@@ -26,9 +30,25 @@ namespace VogtEmployee
                 Console.WriteLine("What is the last name of the employee?");
                 emp.EmpLastName = Console.ReadLine();
 
-            var listOfEmployees = new List<(int empNo, string empFName, string empLName)>();
+                listOfEmployees.Add((emp.EmpNumber, emp.EmpFirstName, emp.EmpLastName));
 
-            listOfEmployees.Add((emp.EmpNumber, emp.EmpFirstName, emp.EmpLastName));
+                Console.WriteLine("Would you like to add another employee?");
+                Console.WriteLine("1. Yes");
+                Console.WriteLine("2. No");
+
+                choice = Convert.ToInt32(Console.ReadLine());
+
+                if (choice > 2 || choice < 1)
+                {
+
+                }
+
+                if (choice == 2)
+                {
+                    quit = true;
+                }
+            }
+
 
             foreach (var employee in listOfEmployees)
             {
@@ -50,6 +70,20 @@ namespace VogtEmployee
 
             Console.ResetColor();
 
+        }
+        #endregion
+
+        #region DisplayError
+        /// <summary>
+        /// Display an error for the selected choice in dark red
+        /// </summary>
+        public static void DisplayError()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+
+            Console.WriteLine("Error!");
+
+            Console.ResetColor();
         }
         #endregion
     }
