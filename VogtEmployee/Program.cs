@@ -21,14 +21,30 @@ namespace VogtEmployee
 
             while (quit == false)
             {
-                Console.WriteLine("What is the number of the employee?");
-                emp.EmpNumber = Convert.ToInt32(Console.ReadLine());
+                try
+                {
+                    Console.WriteLine("What is the number of the employee?");
+                    emp.EmpNumber = Convert.ToInt32(Console.ReadLine());
 
-                Console.WriteLine("What is the first name of the employee?");
-                emp.EmpFirstName = Console.ReadLine();
+                    Console.WriteLine("What is the first name of the employee?");
+                    emp.EmpFirstName = Console.ReadLine();
 
-                Console.WriteLine("What is the last name of the employee?");
-                emp.EmpLastName = Console.ReadLine();
+                    Console.WriteLine("What is the last name of the employee?");
+                    emp.EmpLastName = Console.ReadLine();
+                }
+                catch (Exception e)
+                {
+                    if (e is FormatException)
+                    {
+                        DisplayErrorForFormat();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something has occured!");
+
+                    }
+                }
 
                 listOfEmployees.Add((emp.EmpNumber, emp.EmpFirstName, emp.EmpLastName));
 
@@ -40,7 +56,7 @@ namespace VogtEmployee
 
                 if (choice > 2 || choice < 1)
                 {
-                    DisplayError();
+                    DisplayChoiceError();
                 }
 
                 if (choice == 2)
@@ -83,17 +99,44 @@ namespace VogtEmployee
         }
         #endregion
 
-        #region DisplayError
+        #region DisplayChoiceError
         /// <summary>
         /// Display an error for the selected choice in dark red
         /// </summary>
-        public static void DisplayError()
+        public static void DisplayChoiceError()
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
+            ConsoleColorRed();
 
             Console.WriteLine("Error!");
 
             Console.ResetColor();
+
+        }
+        #endregion
+
+        #region DisplayErrorForFormat
+        /// <summary>
+        /// Displays an error over format
+        /// </summary>
+        public static void DisplayErrorForFormat()
+        {
+            ConsoleColorRed();
+
+            Console.WriteLine("The type of input is incorrect! Please Try again!");
+
+            Console.ResetColor();
+
+        }
+        #endregion
+
+        #region ConsoleColorRed
+        /// <summary>
+        /// Changes the console to red
+        /// </summary>
+        public static void ConsoleColorRed()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+
         }
         #endregion
 
