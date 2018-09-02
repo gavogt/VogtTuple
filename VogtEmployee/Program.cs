@@ -40,7 +40,7 @@ namespace VogtEmployee
 
                 if (choice > 2 || choice < 1)
                 {
-
+                    DisplayError();
                 }
 
                 if (choice == 2)
@@ -49,14 +49,24 @@ namespace VogtEmployee
                 }
             }
 
+            DisplayInformation(listOfEmployees);
 
-            foreach (var employee in listOfEmployees)
+        }
+
+        #region DisplayEmpInformation
+        /// <summary>
+        /// Display information on the employee list
+        /// </summary>
+        /// <param name="list">Add in a tuple of employee number, employee first name and employee string</param>
+        public static void DisplayInformation(List<(int empNo, string empFName, string empLName)> list)
+        {
+            foreach (var employee in list)
             {
                 Console.WriteLine($"Employee number is: {employee.empNo}");
                 Console.WriteLine($"Employee name is: {employee.empFName} {employee.empLName}");
             }
-
         }
+        #endregion
 
         #region DisplayHeader
         /// <summary>
@@ -86,5 +96,6 @@ namespace VogtEmployee
             Console.ResetColor();
         }
         #endregion
+
     }
 }
